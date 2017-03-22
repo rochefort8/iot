@@ -1,0 +1,1 @@
+curl -X POST -u 9bf4dd06-7a89-4924-b333-614cb4a94ff3:PASSWORD --header "Content-Type: audio/wav" --header "Transfer-Encoding: chunked" --data-binary @hello_jp.wav "https://stream.watsonplatform.net/speech-to-text/api/v1/recognize?continuous=true&model=ja-JP_BroadbandModel"
