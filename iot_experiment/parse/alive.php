@@ -28,7 +28,7 @@ $query = new ParseQuery("RPi3");
 
 try {
     $first = $query->first();
-    $first->set("akive","2") ;
+    $first->set("alive","2") ;
     $first->save() ;
 } catch (\Parse\ParseException $e) {
      print $e ;
