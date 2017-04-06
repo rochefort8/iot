@@ -1,0 +1,12 @@
+{
+    "name": "audrey/iotexp",
+    "authors": [
+        {
+            "name": "Yuji Ogihara",
+            "email": "Yuji.Ogihara@jp.sony.com"
+        }
+    ],
+    "require": {
+        "parse/php-sdk" : "1.2.*"
+    }
+}
