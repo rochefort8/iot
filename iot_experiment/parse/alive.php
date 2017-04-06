@@ -24,12 +24,13 @@ $dest_url = 'https://parseapi.back4app.com/';
 ParseClient::initialize( $app_id, $rest_key, $master_key );
 ParseClient::setServerURL($dest_url,'/') ;
 
-$obj = ParseObject::create("RPi3");
-   try {
-       $obj->set( "akive" , "1" ) ;
-       $obj->save() ;
-   } catch (\Parse\ParseException $e) {
-      print $e ;
-   }
+$query = new ParseQuery("RPi3");
 
+try {
+    $first = $query->first();
+    $first->set("akive","2") ;
+    $first->save() ;
+} catch (\Parse\ParseException $e) {
+     print $e ;
+}
 ?>
