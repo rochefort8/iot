@@ -1,0 +1,2 @@
+ 2244  arecord -r 48000 -c 1 -f S16_LE -D plughw:2,0 hello.wav
+ 2254  aplay -r 48000 -c 1 -f S16_LE pcm/train.pcm.1.pcm  -D plughw:2,0
