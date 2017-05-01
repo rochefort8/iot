@@ -24,15 +24,22 @@ $dest_url = 'https://parseapi.back4app.com/';
 ParseClient::initialize( $app_id, $rest_key, $master_key );
 ParseClient::setServerURL($dest_url,'/') ;
 
-$query = new ParseQuery("RPi3");
+//$query = new ParseQuery("RPi3");
+$object = ParseObject::create("RPi_hum_tmp");
 
-$hum_tmp=shell_exec("./get_hum_tmp.sh") ;
-print $hum_tmp;
+$hum=shell_exec("./get_hum_tmp.sh | cut -d, -f1") ;
+$temp=shell_exec("./get_hum_tmp.sh | cut -d, -f2") ;
+$temp1=shell_exec("./get_hum_tmp.sh | cut -d, -f4") ;
+
+print $hum;
+print $temp;
+print $temp1;
 
 try {
-    $first = $query->first();
-    $first->set("alive","2") ;
-//    $first->save() ;
+     $object->set("humidity",$hum) ;
+     $object->set("temperature",$temp) ;
+     $object->set("temperature0",$temp1) ;
+     $object->save() ;
 } catch (\Parse\ParseException $e) {
      print $e ;
 }
