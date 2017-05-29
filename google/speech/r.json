@@ -1,0 +1,7 @@
+{
+    "config":{
+	"encoding":"FLAC",
+	"sample_rate":16000,
+	"language_code":"en-US"
+    },
+    "audio":{
