@@ -2,40 +2,50 @@
 
 $im = imagecreatefromjpeg('tokaido1.jpg');
 
-// get the image size
-$w = imagesx($im);
-$h = imagesy($im);
+$fp = fopen('./data.csv','r') ;
 
-// place some text (top, left)
-$bbox=imagettfbbox(24, 0, './umefont_670/ume-hgo4.ttf', 'し  な  が  わ');
+while (($data = fgetcsv($fp)) !== FALSE) {
+      draw($data);
+}
 
-print $bbox[0];
-printf("\n") ;
-print $bbox[1];
-printf("\n") ;
-print $bbox[2];
-printf("\n") ;
-print $bbox[3];
-printf("\n") ;
-print $bbox[4];
-printf("\n") ;
-print $bbox[5];
-printf("\n") ;
-print $bbox[6];
-printf("\n") ;
-print $bbox[7];
-printf("\n") ;
+function insertStr2($text, $insert, $num){
+    return preg_replace("/^.{0,$num}+\K/us", $insert, $text);
+}
+    
+function draw($data) {
 
-$x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
+     $im = imagecreatefromjpeg('tokaido1.jpg');
+     $ttf="./umefont_670/ume-hgo4.ttf" ;
+	 
+     $n = mb_strlen( $data[0] );
+     $kanji = $data[0] ;
+     for ($i = 0;$i < $n-1;$i++) {
+          $kanji = insertStr2($kanji,' ',2*$i+1);
+     }
+     
+     $n = mb_strlen( $data[1] );
+     $kana  = $data[1] ;
+     for ($i = 0;$i < $n-1;$i++) {
+          $kana = insertStr2($kana,' ',2*$i+1);
+     }
+     $roman = $data[2] ;
 
-print $x;
-printf("\n") ;
+     $bbox=imagettfbbox(50, 0, $ttf, $kanji);
 
-imagettftext($im, 50, 0, 234, 80, 0x0, './umefont_670/ume-hgo4.ttf', '品  川');
-imagettftext($im, 24, 0, 228, 120, 0x0, './umefont_670/ume-hgo4.ttf', 'し  な  が  わ');
-imagettftext($im, 18, 0, 260, 154, 0x0, './umefont_670/ume-hgo4.ttf', 'Shinagawa');
+     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
+     
+     imagettftext($im, 50, 0, $x, 80, 0x0, $ttf, $kanji);
+     
+     $bbox=imagettfbbox(24, 0, $ttf, $kana);
+     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
+     imagettftext($im, 24, 0, $x, 120, 0x0, $ttf, $kana);
 
-//imageJpeg($im, "/share/001.jpg", 85);
-imageJpeg($im, "001.jpg", 85);
-imagedestroy($im);
+     $bbox=imagettfbbox(18, 0, $ttf, $roman);
+     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
+     imagettftext($im, 18, 0, $x, 154, 0x0, $ttf, $roman);
+
+     imageJpeg($im, "$roman.jpg", 85);
+     imagedestroy($im);
+}
+
 ?>
