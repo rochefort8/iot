@@ -1,9 +1,9 @@
 <?php
 
+$csv=$argv[1];
+$folder=$argv[2];
 
-
-$fp = fopen('./data.csv','r') ;
-
+$fp = fopen($csv,'r') ;
 
 $index = 0;
 $kana_prev="";
@@ -11,9 +11,9 @@ $roman_prev="";
 
 while (($data = fgetcsv($fp)) !== FALSE) {
 
-     $im = imagecreatefromjpeg('tokaido/base.jpg');
+     $im = imagecreatefromjpeg('./base.jpg');
 
-     $ttf="./umefont_670/ume-hgo4.ttf" ;
+     $ttf="../umefont_670/ume-hgo4.ttf" ;
 	 
      $n = mb_strlen( $data[1] );
      $kanji = $data[1] ;
@@ -57,7 +57,7 @@ while (($data = fgetcsv($fp)) !== FALSE) {
      $kana_prev=$kana ;
      $roman_prev=$roman ;
 
-     imageJpeg($im, "tokaido/$roman.jpg", 85);
+     imageJpeg($im, "$folder/$roman.jpg", 85);
      imagedestroy($im);
 
      $index++;
