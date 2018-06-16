@@ -2,56 +2,59 @@
 
 $csv=$argv[1];
 $folder=$argv[2];
-
 $fp = fopen($csv,'r') ;
 
 $index = 0;
 $kana_prev="";
 $roman_prev="";
+$ttf="../umefont_670/ume-hgo4.ttf" ;
+
+function insertSpace($src) {
+     $dst = $src ;
+     $n = mb_strlen( $src );     
+     for ($i = 0;$i < $n-1;$i++) {
+          $dst = insertStr2($dst,' ',2*$i+1);
+     }
+     return $dst;
+}
+
+function imageWriteTextAtVirticalCenter($im,$text,$ttf,$size,$pos_y){
+     imageWriteTextAt($im,$text,$ttf,$size,imagesx($im)/2,$pos_y);
+}
+
+function imageWriteTextAt($im,$text,$ttf,$size,$pos_x,$pos_y){
+     $bbox=imagettfbbox($size, 0, $ttf, $text);
+     $x = $pos_x - ($bbox[2] - $bbox[0]) / 2 ;
+     imagettftext($im, $size, 0, $x, $pos_y, 0x0, $ttf, $text);
+}
+
+function insertStr2($text, $insert, $num){
+    return preg_replace("/^.{0,$num}+\K/us", $insert, $text);
+}
 
 while (($data = fgetcsv($fp)) !== FALSE) {
 
      $im = imagecreatefromjpeg('./base.jpg');
-
-     $ttf="../umefont_670/ume-hgo4.ttf" ;
 	 
-     $n = mb_strlen( $data[1] );
-     $kanji = $data[1] ;
-     for ($i = 0;$i < $n-1;$i++) {
-          $kanji = insertStr2($kanji,' ',2*$i+1);
-     }
-     $kana  = $data[2] ;
-     $n = mb_strlen( $data[2] );     
-     for ($i = 0;$i < $n-1;$i++) {
-          $kana = insertStr2($kana,' ',2*$i+1);
-     }
+     $kanji = insertSpace ( $data[1] ) ;
+     $kana  = insertSpace ( $data[2] ) ;
      $roman = $data[3] ;
 
      // 新 横 浜
-     $bbox=imagettfbbox(50, 0, $ttf, $kanji);
-     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
-     imagettftext($im, 50, 0, $x, 80, 0x0, $ttf, $kanji);
+     imageWriteTextAtVirticalCenter($im,$kanji,$ttf,50,80);
 
      // し ん よ こ は ま
-     $bbox=imagettfbbox(24, 0, $ttf, $kana);
-     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
-     imagettftext($im, 24, 0, $x, 120, 0x0, $ttf, $kana);
+     imageWriteTextAtVirticalCenter($im,$kana,$ttf,24,120);
 
      // Shin-Yokohama
-     $bbox=imagettfbbox(18, 0, $ttf, $roman);
-     $x = (imagesx($im) - ($bbox[2] - $bbox[0])) / 2 ;
-     imagettftext($im, 18, 0, $x, 154, 0x0, $ttf, $roman);
+     imageWriteTextAtVirticalCenter($im,$roman,$ttf,18,154);
 
      if ($index > 0) {
           // し ん よ こ は ま
-         $bbox=imagettfbbox(18, 0, $ttf, $kana_prev);
-	 $x = 520 - ($bbox[2] - $bbox[0])/2 ;
-         imagettftext($im, 18, 0, $x, 205, 0x0, $ttf, $kana_prev);
+	 imageWriteTextAt($im,$kana_prev,$ttf,18,500,205);
 
          // Shin-Yokohama
-         $bbox=imagettfbbox(14, 0, $ttf, $roman_prev);
-         $x = 520 - ($bbox[2] - $bbox[0]) / 2 ;
-         imagettftext($im, 14, 0, $x, 225, 0x0, $ttf, $roman_prev);
+	 imageWriteTextAt($im,$roman_prev,$ttf,14,500,226);
      }
      
      $kana_prev=$kana ;
@@ -64,8 +67,5 @@ while (($data = fgetcsv($fp)) !== FALSE) {
 
 }
 
-function insertStr2($text, $insert, $num){
-    return preg_replace("/^.{0,$num}+\K/us", $insert, $text);
-}
 
 ?>
