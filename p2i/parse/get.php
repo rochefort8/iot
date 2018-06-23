@@ -29,7 +29,9 @@ $dest_url = 'https://parseapi.back4app.com/';
 ParseClient::initialize( $app_id, $rest_key, $master_key );
 ParseClient::setServerURL($dest_url,'/') ;
 
-$query = new ParseQuery("Toukaido");
+$line=$argv[1];
+
+$query = new ParseQuery($line);
         
 $query->ascending("index");        
 
