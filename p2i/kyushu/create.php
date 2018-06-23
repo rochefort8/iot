@@ -7,7 +7,8 @@ $fp = fopen($csv,'r') ;
 $index = 0;
 $kana_prev="";
 $roman_prev="";
-$ttf="../umefont_670/ume-hgo5.ttf" ;
+$ttf_1="../umefont_670/ume-hgo5.ttf" ;
+$ttf="../fonts/GenShinGothic-Bold.ttf" ;
 
 function insertSpace($src) {
      $dst = $src ;
@@ -57,18 +58,18 @@ while (($data = fgetcsv($fp)) !== FALSE) {
      // し ん よ こ は ま
      imageWriteTextAtVirticalCenter($im,$kana,$ttf,40,85);
 
-     imageWriteTextAtVirticalCenter($im,$roman,$ttf,24,125);
+     imageWriteTextAtVirticalCenter($im,$roman,$ttf_1,24,125);
 
      imageWriteTextAtVirticalCenter($im,$kanji,$ttf,18,155);
 
-     imageWriteTextAtVirticalCenter($im,$extra,$ttf,18,205);
+     imageWriteTextAtVirticalCenter($im,$extra,$ttf_1,18,205);
 
      if ($index > 0) {
           // し ん よ こ は ま
 	 imageWriteTextAt($im,$kana_prev,0xffffff,$ttf,20,540,180);
 
          // Shin-Yokohama
-	 imageWriteTextAt($im,$roman_prev,0xffffff,$ttf,14,540,200);
+	 imageWriteTextAt($im,$roman_prev,0xffffff,$ttf_1,14,540,200);
      }
      
      $kana_prev=$kana ;
