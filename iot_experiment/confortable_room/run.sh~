@@ -1,6 +1,0 @@
-#!/bin/sh
-
-
-
-mosquitto_pub -h quickstart.messaging.internetofthings.ibmcloud.com -t "iot-2/evt/ogi/fmt/json" -m '{"temp":"21","humidity":"54"}' -i d:quickstart:ogi:858585858585
-

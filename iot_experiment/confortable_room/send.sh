@@ -13,7 +13,7 @@ send_data() {
     echo $temp $humidity
     mosquitto_pub -h $ibmcloud_iot_quickstart_url -t $mqtt_topic \
 		  -m '{"temp":'\"$temp\"',"humidity":'\"$humidity\"'}' \
-		  -i d:quickstart:ogi:$device_id -q 1 -d
+		  -i d:quickstart:ogi:$device_id -q 0 -d
 
 }
 
