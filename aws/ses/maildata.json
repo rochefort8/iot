@@ -1,0 +1,8 @@
+{
+  "Source":"tt-official@tochikukai.com",
+  "Template": "tt-annual-fee-to-payer",
+  "Destination": {
+    "ToAddresses": [ "hoegaarden1917@gmail.com" ]
+  },
+  "TemplateData": "{ \"name\":\"犬丸　茶太郎\" }"
+}
