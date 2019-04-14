@@ -1,0 +1,33 @@
+#coding: UTF-8
+
+from datetime import datetime
+
+val = 3.14159265
+
+
+def saveValue(path,value):
+    with open(path,mode='a') as f:
+        now = datetime.now().isoformat()
+        s = str(int(value)) + "," + now + "\n"
+        f.write(s)
+
+        with open(path) as f:
+            print(f.read())
+
+path = "./a.txt"
+saveValue(path,val)
+
+#!/bin/bash
+
+filesize=0
+path=./a.txt
+
+while [ 1 ];
+do
+    _size=$(wc -c < $path)
+    if [ $filesize != $_size ]; then
+	filesize=$_size
+	echo "Written Size="$filesize
+    fi
+    sleep 1
+done
