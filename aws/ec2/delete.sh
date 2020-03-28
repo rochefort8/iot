@@ -7,7 +7,7 @@ fi
 
 instance_name=$1
 
-echo -n "Create EC2 instance" $instance_name "? [Y/n]: "
+echo -n "Delete EC2 instance" $instance_name "? [Y/n]: "
 read ANS
 
 case $ANS in
