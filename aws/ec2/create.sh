@@ -48,5 +48,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+aws ec2 describe-instances --filter "Name=tag:Name,Values="${instance_name}"" | grep PublicIpAddress
+
 exit 0
 
