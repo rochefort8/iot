@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-IMAGE_ID="ami-0d900447fcd5674a1"
+IMAGE_ID="ami-093b908b31745fa80"
 INSTANCETYPE="t2.micro"
 SUBNET_ID="subnet-027dbbfc1c15246a2"
 SECURITY_GROUP_ID="sg-0adc3d86d340c9393"
