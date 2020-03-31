@@ -44,4 +44,6 @@ PUBLIC_IP=$(
     --query 'Addresses[].PublicIp' \
     --output text \
 ) \
-  && echo "Allocated IP address" ${PUBLIC_IP} "for" ${instance_name} "."
+    && echo "Allocated IP address" ${PUBLIC_IP} "for" ${instance_name} "." \
+    && echo ${PUBLIC_IP} > ${instance_name}"_ip.txt"
+
